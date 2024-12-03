@@ -79,6 +79,8 @@ defmodule Bandit.HTTP1.Socket do
     defp do_read_request_line!(socket, request_target \\ nil) do
       packet_size = Keyword.get(socket.opts.http_1, :max_request_line_length, 10_000)
 
+      IO.puts("Socket Buffer: `#{socket.buffer}`")
+
       case :erlang.decode_packet(:http_bin, socket.buffer, packet_size: packet_size) do
         {:more, _len} ->
           chunk = read_available_for_header!(socket.socket)
