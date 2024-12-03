@@ -84,6 +84,7 @@ defmodule Bandit.HTTP1.Socket do
       case :erlang.decode_packet(:http_bin, socket.buffer, packet_size: packet_size) do
         {:more, _len} ->
           chunk = read_available_for_header!(socket.socket)
+          IO.inspect(chunk, "CHUNK")
           do_read_request_line!(%{socket | buffer: socket.buffer <> chunk}, request_target)
 
         {:ok, {:http_request, method, request_target, version}, rest} ->
