@@ -92,6 +92,7 @@ defmodule Bandit.HTTP1.Socket do
           request_target = resolve_request_target!(request_target)
           method = to_string(method)
           socket = %{socket | buffer: rest, version: version}
+          IO.puts("method: #{method}, target: #{request_target}")
           {method, request_target, socket}
 
         {:ok, {:http_error, reason}, _rest} ->
